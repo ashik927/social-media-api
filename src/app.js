@@ -21,7 +21,7 @@ app.use(cors())
 app.use(handleRequest);
 try {
     // app.use('/inventory', authenticateRequest, routes);
-    app.use('/inventory', routes);
+    app.use('/socialMedia', routes);
 }
 catch (err) {
     handleError(err);
