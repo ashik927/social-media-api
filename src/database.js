@@ -1,18 +1,16 @@
-const mongoose = require("mongoose");
+var mysql = require('mysql');
 
-const HOST = process.env.MONGODB_HOST || "localhost";
-const DATABASE = process.env.MONGODB_DATABASE || "kx-fulfillment";
+const HOST = "localhost";
+const DATABASE = "social-media";
 
-const uri = `mongodb://${HOST}:27017/${DATABASE}`;
-const options = { 
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-};
+
 
 connectWithDb = () => {
-    mongoose.connect(uri, options, (err, db) => {
-        if (err) console.error(err);
-        else console.log("Connection established with database");
+    return mysql.createConnection({
+        host: HOST,
+        user: 'root',
+        password: '',
+        database: DATABASE
     });
 };
 
