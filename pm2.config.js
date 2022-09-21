@@ -1,7 +1,7 @@
 module.exports = {
   apps : [
       {
-        name: "kx-fullfilment-api",
+        name: "social-media-api",
         script: "./src/server.js",
         watch: true,
         env: {
