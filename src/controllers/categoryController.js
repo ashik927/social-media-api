@@ -4,8 +4,8 @@ const Category = Model.categoryModel;
 const Item = Model.itemModel;
 
 const findAll = async (req, res) => {
-    const categories = await Category.find({ client_id: parseInt(req.query.client_id) });
-    res.send(categories);
+    // const categories = await Category.find({ client_id: parseInt(req.query.client_id) });
+    res.send("categories");
 }
 
 const findCategoriesbyStatus = async (req, res) => {

@@ -4,7 +4,7 @@ const connectWithDb = require("./database");
 const port = process.env.PORT || 7000;
 
 app.get("/", (req, res) => {
-    res.send("KX Fulfillment");
+    res.send("Social-media");
 });
 
 app.listen(port, () => {

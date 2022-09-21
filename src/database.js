@@ -6,7 +6,7 @@ const DATABASE = "social-media";
 
 
 connectWithDb = () => {
-    return mysql.createConnection({
+     mysql.createConnection({
         host: HOST,
         user: 'root',
         password: '',
