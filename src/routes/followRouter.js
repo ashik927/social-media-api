@@ -7,6 +7,8 @@ const router = express.Router();
 const followController = controller.followController;
 
 router.get("/me/follows/:userID", followController.findAllFollower);
+router.get("/me/following/:userID", followController.findAllFollowing);
+
 router.post("/me/follow",handleValidation(validators.followSchemaValidate), followController.store);
 router.delete("/me/follow/:id", followController.destroy);
 

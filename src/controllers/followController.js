@@ -21,6 +21,23 @@ const findAllFollower = async (req, res) => {
 
 }
 
+const findAllFollowing = async (req, res) => {
+    let id = req.params.id;
+
+    dbConn.query('SELECT * FROM follow where followUserID=?',userID, function (error, results, fields) {
+        if (error) throw error;
+
+        // check has data or not
+        let message = "";
+        if (results === undefined || results.length == 0)
+            message = "follow table is empty";
+        else
+            message = "Successfully retrived all follow";
+
+        return res.send({ data: results });
+    });
+
+}
 
 const store = async (req, res) => {
     // destructuring
@@ -52,4 +69,4 @@ const destroy = async (req, res) => {
 
 }
 
-module.exports = { findAllFollower, store, destroy };
+module.exports = { findAllFollower, store, destroy , findAllFollowing };
