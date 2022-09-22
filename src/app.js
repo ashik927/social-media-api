@@ -20,8 +20,7 @@ app.use(express.json({limit: '2MB'}));
 app.use(cors())
 app.use(handleRequest);
 try {
-    // app.use('/inventory', authenticateRequest, routes);
-    app.use('/socialMedia', routes);
+    app.use('/api', routes);
 }
 catch (err) {
     handleError(err);

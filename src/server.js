@@ -1,14 +1,14 @@
 const app = require('./app');
-const connectWithDb = require("./database");
+const dbConn = require("./database");
 
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 8000;
 
 app.get("/", (req, res) => {
     res.send("Social-media");
 });
 
 app.listen(port, () => {
-    connectWithDb();
+    dbConn;
 
     console.log(`Server is running on port ${port}`);
 });
