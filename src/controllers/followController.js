@@ -39,6 +39,24 @@ const findAllFollowing = async (req, res) => {
 
 }
 
+const findMeFollow = async (req, res) => {
+    const {followUserID , userID} = req.query
+
+    dbConn.query('SELECT * FROM follow where followUserID=? AND  userID=?',[followUserID ,userID], function (error, results, fields) {
+        if (error) throw error;
+
+        // check has data or not
+        let message = "";
+        if (results === undefined || results.length == 0)
+            message = "Like table data not found";
+        else
+            message = "Successfully retrived  follow";
+
+        return res.send({ data: results });
+    });
+
+}
+
 const store = async (req, res) => {
     // destructuring
     const { userID, followUserID } = req.body
@@ -69,4 +87,4 @@ const destroy = async (req, res) => {
 
 }
 
-module.exports = { findAllFollower, store, destroy , findAllFollowing };
+module.exports = { findAllFollower, store, destroy , findAllFollowing , findMeFollow };

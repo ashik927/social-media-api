@@ -7,6 +7,7 @@ const router = express.Router();
 const likesController = controller.likesController;
 
 router.get("/likes", likesController.findAll);
+router.get("/me/like", likesController.findMeLike);
 router.post("/me/like",handleValidation(validators.likesSchemaValidate), likesController.store);
 router.delete("/me/like/:id", likesController.destroy);
 

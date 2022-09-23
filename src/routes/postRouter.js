@@ -7,6 +7,7 @@ const router = express.Router();
 const postController = controller.postController;
 
 router.get("/murmurs", postController.findAll);
+router.get("/murmurs/:id", postController.findUserPost);
 router.post("/me/murmurs",handleValidation(validators.postSchemaValidate), postController.store);
 router.delete("/me/murmurs/:id", postController.destroy);
 

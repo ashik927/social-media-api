@@ -11,12 +11,17 @@ const login = async (req, res) => {
 
         // check has data or not
         let message = "";
-        if (results === undefined || results.length == 0)
+        let status;
+        if (results === undefined || results.length == 0){
             message = "Login Failed";
-        else
+            status = 400
+        }
+        else{
+            status = 200
             message = "Successfully Login";
+        }
 
-        return res.send({ data: results[0] });
+        return res.send({status:status, data: results[0],message:message });
     });
 }
 
@@ -31,7 +36,7 @@ const register = async (req, res) => {
         let message = "";
         if (results === undefined || results.length >0) {
             message = "Email Already Existes";
-            return res.send({ error: true, message: 'Email Already Existes' });
+            return res.send({ status: 400, message: 'Email Already Existes' });
         }
 
         else {
@@ -42,7 +47,7 @@ const register = async (req, res) => {
             // insert to db
             dbConn.query("INSERT INTO user (name, userName ,email,password) VALUES (?, ? ,? ,?)", [name, email, email, password], function (error, results, fields) {
                 if (error) throw error;
-                return res.send({ error: false, data: results, message: 'User successfully added' });
+                return res.send({ status: 200, data: results, message: 'User successfully added' });
             });
         }
 
@@ -51,7 +56,25 @@ const register = async (req, res) => {
 
 }
 
+const findUser = async (req, res) => {
+    let userName = req.query?.userName;
+
+       dbConn.query("SELECT * FROM user where userName= ?",userName , function (error, results, fields) {
+        if (error) throw error;
+
+        // check has data or not
+        let message = "";
+        if (results === undefined || results.length == 0)
+            message = "Data Not Found";
+        else
+            message = "Successfully retrived all Data";
+
+        return res.send({status:200, data: results [0]});
+    });
+
+}
 
 
 
-module.exports = { login, register };
+
+module.exports = { login, register,findUser };

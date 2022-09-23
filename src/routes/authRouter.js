@@ -6,7 +6,9 @@ const validators = require("../models/request-models");
 const router = express.Router();
 const authController = controller.authController;
 
-router.use('/login', authController.login )
+router.post('/login', authController.login )
+router.get('/user', authController.findUser )
+
 router.post('/register',handleValidation(validators.authSchemaValidate), authController.register )
 
 module.exports = router;
