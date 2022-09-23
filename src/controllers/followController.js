@@ -4,9 +4,10 @@ const Post = Model.postSchema;
 const dbConn = require('../database');
 
 const findAllFollower = async (req, res) => {
-    let id = req.params.id;
+    let userID = req.params.userID;
 
-    dbConn.query('SELECT * FROM follow where userID=?',userID, function (error, results, fields) {
+    // dbConn.query('SELECT * FROM follow where userID=?',userID, function (error, results, fields) {
+        dbConn.query(' SELECT follow.id, user.userName , user.name FROM follow INNER JOIN user ON follow.followUserID = user.id where follow.userID=?',userID, function (error, results, fields) {
         if (error) throw error;
 
         // check has data or not
@@ -22,9 +23,10 @@ const findAllFollower = async (req, res) => {
 }
 
 const findAllFollowing = async (req, res) => {
-    let id = req.params.id;
+    let userID = req.params.userID;
 
-    dbConn.query('SELECT * FROM follow where followUserID=?',userID, function (error, results, fields) {
+    // dbConn.query('SELECT * FROM follow where followUserID=?',userID, function (error, results, fields) {
+        dbConn.query(' SELECT follow.id, user.userName , user.name FROM follow INNER JOIN user ON follow.followUserID = user.id where follow.followUserID=?',userID, function (error, results, fields) {
         if (error) throw error;
 
         // check has data or not
