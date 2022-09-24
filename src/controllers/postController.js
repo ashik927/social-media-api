@@ -5,38 +5,49 @@ const dbConn = require('../database');
 
 const findAll = async (req, res) => {
     // dbConn.query('SELECT * FROM murmurs', function (error, results, fields) {
-    dbConn.query(' SELECT murmurs.id,murmurs.murmur,murmurs.userID,murmurs.likeCount,murmurs.created_at, user.userName , user.name FROM murmurs INNER JOIN user ON murmurs.userID = user.id ORDER BY id DESC', function (error, results, fields) {
+    const limit = parseInt(req.query.limit) ?? 10
+    const offset = parseInt(req.query.offset) ?? 0
+    var quecount = dbConn.query("Select count(*) as TotalCount from murmurs", function (error, countResults, fields) {
+        if (error) {
+            return error;
+        } else {
+            dbConn.query(' SELECT murmurs.id,murmurs.murmur,murmurs.userID,murmurs.likeCount,murmurs.created_at, user.userName , user.name FROM murmurs INNER JOIN user ON murmurs.userID = user.id ORDER BY id DESC limit ? OFFSET ?', [limit, offset], function (error, results, fields) {
 
-        if (error) throw error;
+                if (error) throw error;
 
-        // check has data or not
-        let message = "";
-        if (results === undefined || results.length == 0)
-            message = "Murmurs table is empty";
-        else
-            message = "Successfully retrived all Murmurs";
+                // check has data or not
+                let message = "";
+                if (results === undefined || results.length == 0)
+                    message = "Murmurs table is empty";
+                else
+                    message = "Successfully retrived all Murmurs";
 
-        return res.send({ data: results });
-    });
-
+                return res.send({ "totalCount": countResults[0]?.TotalCount, data: results });
+            });
+        }
+    })
 }
 
 const findUserPost = async (req, res) => {
     const id = req.params.id
     // dbConn.query('SELECT * FROM murmurs', function (error, results, fields) {
-    dbConn.query(' SELECT murmurs.id,murmurs.murmur,murmurs.userID,murmurs.likeCount,murmurs.created_at, user.userName , user.name FROM murmurs INNER JOIN user ON murmurs.userID = user.id where murmurs.userID=? ORDER BY id DESC ',id, function (error, results, fields) {
+    const limit = parseInt(req.query.limit) ?? 10
+    const offset = parseInt(req.query.offset) ?? 0
+    var quecount = dbConn.query("Select count(*) as TotalCount from murmurs where userID=?", id ,function (error, countResults, fields) {
+        dbConn.query(' SELECT murmurs.id,murmurs.murmur,murmurs.userID,murmurs.likeCount,murmurs.created_at, user.userName , user.name FROM murmurs INNER JOIN user ON murmurs.userID = user.id where murmurs.userID=? ORDER BY id DESC ', id, function (error, results, fields) {
 
-        if (error) throw error;
+            if (error) throw error;
 
-        // check has data or not
-        let message = "";
-        if (results === undefined || results.length == 0)
-            message = "Murmurs table is empty";
-        else
-            message = "Successfully retrived all Murmurs";
+            // check has data or not
+            let message = "";
+            if (results === undefined || results.length == 0)
+                message = "Murmurs table is empty";
+            else
+                message = "Successfully retrived all Murmurs";
 
-        return res.send({ data: results });
-    });
+            return res.send({"totalCount": countResults[0]?.TotalCount, data: results });
+        });
+    })
 
 }
 
@@ -71,4 +82,4 @@ const destroy = async (req, res) => {
 
 }
 
-module.exports = { findAll, store, destroy,findUserPost };
+module.exports = { findAll, store, destroy, findUserPost };
