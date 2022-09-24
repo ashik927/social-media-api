@@ -4,6 +4,8 @@ const schema =
     Joi.object().keys({
         userID: Joi.number().required(),
         followUserID: Joi.number().required(),
+        myfollowingCount: Joi.number().required(),
+        userFollowerCount: Joi.number().required()
     });
 
 const validate = (data) => {

@@ -6,7 +6,7 @@ const dbConn = require('../database');
 const login = async (req, res) => {
     // const categories = await Category.find({ client_id: parseInt(req.query.client_id) });
     const { email, password } = req.body
-    dbConn.query("SELECT `id`, `name`, `userName`, `email`, `created_at`, `password` FROM `user` WHERE `email` = ? AND `password`=?", [email, password], function (error, results, fields) {
+    dbConn.query("SELECT `id`, `name`, `userName`, `email`, `created_at`, `password` , `followerCount` , `followingCount` FROM `user` WHERE `email` = ? AND `password`=?", [email, password], function (error, results, fields) {
         if (error) throw error;
 
         // check has data or not
