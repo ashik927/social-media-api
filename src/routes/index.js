@@ -1,6 +1,5 @@
 const express = require('express');
 
-const categoryRouter = require('./categoryRouter');
 const postRouter = require('./postRouter');
 const followRouter = require('./followRouter');
 const likesRouter = require('./likesRouter');
@@ -13,7 +12,6 @@ const authController = controller.authController;
 
 let router = express.Router();
 
-router.use('/categories', categoryRouter)
 router.use('/', postRouter)
 router.use('/', followRouter)
 router.use('/', likesRouter)

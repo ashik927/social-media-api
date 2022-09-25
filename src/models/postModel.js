@@ -18,6 +18,5 @@ const postSchema = new mongoose.Schema({
 
 });
 
-// const category = new mongoose.model("category", categorySchema);
 
 module.exports = postSchema;

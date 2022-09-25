@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 const Model = require('../models');
-const Category = Model.categoryModel;
 const dbConn = require('../database');
 
 const login = async (req, res) => {
-    // const categories = await Category.find({ client_id: parseInt(req.query.client_id) });
     const { email, password } = req.body
     dbConn.query("SELECT `id`, `name`, `userName`, `email`, `created_at`, `password` , `followerCount` , `followingCount` FROM `user` WHERE `email` = ? AND `password`=?", [email, password], function (error, results, fields) {
         if (error) throw error;
