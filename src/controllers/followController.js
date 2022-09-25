@@ -26,7 +26,7 @@ const findAllFollowing = async (req, res) => {
     let userID = req.params.userID;
 
     // dbConn.query('SELECT * FROM follow where followUserID=?',userID, function (error, results, fields) {
-    dbConn.query(' SELECT follow.id, user.userName , user.name FROM follow INNER JOIN user ON follow.followUserID = user.id where follow.followUserID=?', userID, function (error, results, fields) {
+    dbConn.query(' SELECT follow.id, user.userName , user.name FROM follow INNER JOIN user ON follow.userID = user.id where follow.followUserID=?', userID, function (error, results, fields) {
         if (error) throw error;
 
         // check has data or not
