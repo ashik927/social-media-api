@@ -9,6 +9,5 @@ app.get("/", (req, res) => {
 
 app.listen(port, () => {
     dbConn;
-
     console.log(`Server is running on port ${port}`);
 });

@@ -7,7 +7,7 @@ const router = express.Router();
 const authController = controller.authController;
 
 router.post('/login', authController.login )
-router.get('/user', authController.findUser )
+router.get('/user',handleValidatin(), authController.findUser )
 
 router.post('/register',handleValidation(validators.authSchemaValidate), authController.register )
 
